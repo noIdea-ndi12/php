@@ -20,18 +20,33 @@ Class ModelPlate {
             else return "OK";
 	}
 	
-	function set($param1, $param2){
+	function set($params){
 		// R�ponse du model.		
-		$rep = $param; 
-		if($param1 == "like"){
+		$rep = "OK"; 
+                
+		if($params[0] == "like"){
                     
 		}
 		else{
                     /* $param1 n'est pas de type /like, donc c'est une image
                     par d�finition */
-                    if($param2) $img_to_upload = base64_encode($param2);
-                    else $rep = "KO";
-		}		
+                    if($param2){
+                        $img_to_upload = base64_encode($param2);
+                        
+                        // Upload de l'image 
+                        $query_insert_in_pictures = "
+                            INSERT INTO pictures VALUES (null, $img_to_upload)
+                        ";
+                        if(!_query($query_insert_in_pictures)) $rep = "KO";
+                        
+                        // Je créer le lien image-de-plaque à rue
+                        $query_insert_in_pictures = "
+                            INSERT INTO streets_plates_pictures VALUES (".$params[0].", ".$params[].")
+                        ";
+                        if(!_query($query_insert_in_pictures)) $rep = "KO";
+                    }
+		}
+                return $rep;
 	}
         
         function get($id){
@@ -49,8 +64,10 @@ Class ModelPlate {
             $result = _query($query_delete);
             $plaque_de_rue = array();
             
+            $compteur = 0;
             while($row = mysql_fetch_array($result){
-                $plaque_de_rue[] = ;
+                $plaque_de_rue[$compteur]['streets_plates_id'] = ;
+                $compteur++;
             }
         }
         
