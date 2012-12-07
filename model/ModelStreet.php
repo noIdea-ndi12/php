@@ -7,18 +7,24 @@ class ModelStreet{
             return false;
         
         $sql = "SELECT * FROM streets WHERE id = " . $id;
-        return mysql_fetch_array(mysql_query($sql));
+        $result = mysql_query($sql) or exit(false);
+        return mysql_fetch_assoc($result);
     }
     
-    //TODO : changer le * par cqu'on a besoin.
-    //TODO : a revoir.
-    function search($street,$city,$page = 0){
-        $sql = "SELECT * FROM streets, cities WHERE streets.name LIKE " . htmlspecialchars($street) . "AND cities.name = '" . htmlspecialchars($city) . "' LIMIT " . $page*ITEM_PER_PAGE . "," . ITEM_PER_PAGE;
-        return mysql_fetch_array(mysql_query($sql));
+    function search($street, $city  , $page){
+        $sql = "SELECT * FROM streets,cities WHERE streets.name LIKE '" . $street . "%' AND cities.name = '" . $city . "' LIMIT " . $page*ITEM_PER_PAGE . ',' . ITEM_PER_PAGE;
+        
+        $result = mysql_query($sql) or exit(false);
+
+        $data = array();
+        while($donnee = mysql_fetch_assoc($result)){
+            $data[] = $donnee;
+        }
+        return $data;
     }
     
     function delete($id){
-        if(!numeric($id))
+        if(!is_numeric($id))
             return false;
         
         $sql = "DELETE FROM streets WHERE id =" . $id;
