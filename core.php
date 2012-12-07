@@ -8,6 +8,8 @@
     define('LOC_CONTROLLER', ROOT . '/controller/');
     define('LOC_MODEL', ROOT . '/model/');
     
+    define('ITEM_PER_PAGE',10);
+    
     require(ROOT . '/controller.php');
     
    // mysql_connect(SERVER, USER_DB, PASS_BD) or die ('creve1');
