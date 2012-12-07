@@ -11,9 +11,15 @@ class ModelStreet{
         return mysql_fetch_assoc($result);
     }
     
-    function search($street, $city  , $page){
-        $sql = "SELECT * FROM streets,cities WHERE streets.name LIKE '" . $street . "%' AND cities.name = '" . $city . "' LIMIT " . $page*ITEM_PER_PAGE . ',' . ITEM_PER_PAGE;
+    function search($street, $city = null , $page){
+        $sql = "SELECT streets.name as streetName, cities.name as cityName, streets.id as id FROM streets,cities WHERE streets.cities_id = cities.id AND streets.name LIKE '" . $street . "%'";
         
+        if($city != null){
+            $sql .= "AND cities.name = '" . $city . "'";
+        }
+        $sql .=  " LIMIT " . $page*ITEM_PER_PAGE . ',' . ITEM_PER_PAGE;
+        
+        echo $sql;
         $result = mysql_query($sql) or exit(false);
 
         $data = array();
@@ -31,8 +37,9 @@ class ModelStreet{
         return mysql_query($sql);
     }
     
-    function set($id = null){
-        if(id == null){
+    function set($id){
+        
+        if($id == null){
             $sql = "INSERT INTO streets ";
             
             $param = '(';
@@ -41,9 +48,9 @@ class ModelStreet{
             foreach($_POST as $k => $v){
                 $param .= "$k,";
                 if(!is_numeric($v))
-                    $values .= "'$v'";
+                    $values .= "'$v',";
                 else {
-                    $values .= "$v";
+                    $values .= "$v,";
                 }
             }
             
@@ -54,23 +61,30 @@ class ModelStreet{
             $param .= ')';
             
             $sql .= $param . " VALUES " . $values; 
+            
+            echo $sql;
+            
             return mysql_query($sql);
         }
         else{
-            if(!numeric($id))
+            if(!is_numeric($id))
                 return false;
             
             $sql = "UPDATE streets SET ";
             
             foreach($_POST as $k => $v){
                 if(!is_numeric($v))
-                    $sql .= "$k='$v'";
+                    $sql .= "$k='$v',";
                 else {
-                    $sql .= "$k=$v";
+                    $sql .= "$k=$v,";
                 }
             }
             
-            $sql .= "WHERE id = " . $id;
+            $sql = substr($sql,0,-1);
+            
+            $sql .= " WHERE id = " . $id;
+            
+            echo $sql;
             
             return mysql_query($sql);
         }
