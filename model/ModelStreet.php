@@ -15,11 +15,10 @@ class ModelStreet{
         $sql = "SELECT streets.name as streetName, cities.name as cityName, streets.id as id FROM streets,cities WHERE streets.cities_id = cities.id AND streets.name LIKE '" . $street . "%'";
         
         if($city != null){
-            $sql .= "AND cities.name = '" . $city . "'";
+            $sql .= " AND cities.name = '" . $city . "'";
         }
         $sql .=  " LIMIT " . $page*ITEM_PER_PAGE . ',' . ITEM_PER_PAGE;
         
-        echo $sql;
         $result = mysql_query($sql) or exit(false);
 
         $data = array();
@@ -62,7 +61,6 @@ class ModelStreet{
             
             $sql .= $param . " VALUES " . $values; 
             
-            echo $sql;
             
             return mysql_query($sql);
         }
@@ -83,8 +81,6 @@ class ModelStreet{
             $sql = substr($sql,0,-1);
             
             $sql .= " WHERE id = " . $id;
-            
-            echo $sql;
             
             return mysql_query($sql);
         }

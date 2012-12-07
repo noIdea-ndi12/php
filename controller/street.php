@@ -7,7 +7,7 @@ class Street extends Controller{
         
         $data['ville'] = $this->request('cities', 'getByID', array($data['cities_id']));
         
-        json_encode($data);
+        echo json_encode($data);
     }
     
     function search($page = 0){
@@ -20,7 +20,7 @@ class Street extends Controller{
         $this->loadModel('Street');
         $data = $this->Street->search($street,$city,$page);
         
-        json_encode($data);
+        echo json_encode($data);
     }
     
     function delete($id){
