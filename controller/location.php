@@ -3,7 +3,7 @@
 class Location{
 
 	public function __construct(){
-		//load
+		$this->loadModel('Location');
 	}
 
 	public function get($id){
