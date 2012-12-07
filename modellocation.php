@@ -123,11 +123,14 @@ class ModelLocation{
 		
 		mysql_query($update.$set.$where);
 		
-		$delete = 'DELETE FROM locationsstreet';
-		$where = ' WHERE location_id = '.$location_id;
-		mysql_query($delete.$where);
+		// $delete = 'DELETE FROM locationsstreet';
+		// $where = ' WHERE location_id = '.$location_id;
+		// mysql_query($delete.$where);
+			$set[] = 'name = '."'".$args['name']."'";
+		if(array_key_exists('content', $args))
+			$this->assocLocationsStreet($location_id, $args['id_streets']);
 		
-		return (mysql_affected_rows()>0);
+		// return (mysql_affected_rows()>0);
 	}
 	
 	public function delete($location_id){
