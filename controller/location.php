@@ -1,14 +1,17 @@
 <?php
 
-class Location{
+class Location extends Controller{
 
 	public function __construct(){
 		$this->loadModel('Location');
 	}
 
 	public function get($id){
-		$location = $this->location->get($id);
-		return json_encode($location[0]);
+		$location = $this->Location->get($id);
+		if(!empty($location))
+			return json_encode($location[0]);
+		
+		return json_encode(array());
 	}
 	
 	public function search($page = 0){
@@ -20,14 +23,14 @@ class Location{
 			$args['name'] = $_POST['name'];
 		if(array_key_exists('city', $_POST) && !empty($_POST['city']))
 			$args['city'] = $_POST['city'];
-		$res = $this->location->get($args);
+		$res = $this->Location->get($args);
 		
 		///////////////pagination
 		return json_encode($res);
 	}
 	
 	public function delete($id){
-		$this->location->delete($id);
+		$this->Location->delete($id);
 	}
 	
 	public function set($id = 0){
@@ -41,15 +44,13 @@ class Location{
 			$args['name'] = $_POST['name'];
 		if(array_key_exists('content', $_POST) && !empty($_POST['content']))
 			$args['content'] = $_POST['content'];
-		$res = $this->location->get($args);
+		$res = $this->Location->get($args);
 
 		if($id==0)
-			$this->location->create($args);
+			$this->Location->create($args);
 		else
-			$this->location->update($id, $args);
+			$this->Location->update($id, $args);
 	}
-
-	//public function photo
 }
 
 ?>
