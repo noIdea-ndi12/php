@@ -6,6 +6,7 @@
     
     define('PRE_MODEL','Model');
     define('LOC_CONTROLLER', ROOT . '/controller/');
+    define('LOC_MODEL', ROOT . '/model/');
     
     require(ROOT . '/controller.php');
     

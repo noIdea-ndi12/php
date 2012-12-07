@@ -1,8 +1,9 @@
 <?php
 
-class Location{
+class Location extends Controller{
    function get($id){
        echo 'id';
    } 
 }
+
 ?>

@@ -3,7 +3,7 @@ class Controller{
     
     public function loadModel($name){
         $nameComp = PRE_MODEL . $name;
-        $file = LOC_MODEL . $nameComp . SUFF_CLASS;
+        $file = LOC_MODEL . $nameComp . '.php';
         require_once $file;
         if(!isset($this->$name))
             $this->$name = new $nameComp();
