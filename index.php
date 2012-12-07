@@ -12,7 +12,7 @@
         $_GET['p'] = 'accueil';
     }
     
-   // require ROOT . '/core.php';
+    require ROOT . '/core.php';
     
     //On capture les paramètres de l'url
     $params = explode('/',$_GET['p']);

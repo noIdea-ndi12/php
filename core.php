@@ -4,7 +4,12 @@
     define('SERVER','88.191.117.164');   
     define('DATABASE','nuitinfo');
     
-    mysql_connect(SERVER, USER_DB, PASS_BD) or die ('creve1');
-    mysql_select_db(DATABASE) or die('creve2');
+    define('PRE_MODEL','Model');
+    define('LOC_CONTROLLER', ROOT . '/controller/');
+    
+    require(ROOT . '/controller.php');
+    
+   // mysql_connect(SERVER, USER_DB, PASS_BD) or die ('creve1');
+   // mysql_select_db(DATABASE) or die('creve2');
 ?>
 
